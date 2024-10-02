@@ -1,114 +1,108 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
-          >Community Chat</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-          >Twitter</a
-        >
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
-          >vue-router</a
-        >
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
-          >vue-loader</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-          >awesome-vue</a
-        >
-      </li>
-    </ul>
+  <div>
+    <h1>Busca de Medicamentos</h1>
+
+    <!-- Formulário de Filtros -->
+    <form @submit.prevent="fetchData">
+      <select v-model="selectedFilter">
+        <option value="all">Todos</option>
+        <option value="substance">Substância</option>
+        <option value="cnpj">CNPJ</option>
+        <option value="laboratory">Laboratório</option>
+      </select>
+      <input type="text" v-model="searchTerm" placeholder="Buscar..." />
+
+      <!-- Botão de Buscar -->
+      <button type="submit">Buscar</button>
+    </form>
+
+    <!-- Listagem de Resultados Paginada -->
+    <div v-if="results.length > 0">
+      <ul>
+        <li v-for="(item, index) in paginatedResults" :key="index">
+          {{ item.name }} - {{ item.substance }} - {{ item.cnpj }} -
+          {{ item.laboratory }}
+        </li>
+      </ul>
+
+      <!-- Paginação -->
+      <div>
+        <button @click="previousPage" :disabled="currentPage === 1">
+          Anterior
+        </button>
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+        <button @click="nextPage" :disabled="currentPage === totalPages">
+          Próxima
+        </button>
+      </div>
+    </div>
+
+    <!-- Mensagem de sem resultados -->
+    <p v-else>Nenhum resultado encontrado</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld",
-  props: {
-    msg: String,
+  data() {
+    return {
+      searchTerm: "",
+      selectedFilter: "all", // Valor inicial do select
+      results: [],
+      currentPage: 1,
+      perPage: 10,
+    };
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.results.length / this.perPage);
+    },
+    paginatedResults() {
+      const start = (this.currentPage - 1) * this.perPage;
+      const end = start + this.perPage;
+      return this.results.slice(start, end);
+    },
+  },
+  methods: {
+    async fetchData() {
+      const apiUrl = "https://fakeapi.com/medicines"; // Substitua pela URL da sua API
+
+      // Parâmetros de busca e filtros
+      const params = {
+        search: this.searchTerm,
+      };
+
+      // Adiciona o filtro selecionado aos parâmetros
+      if (this.selectedFilter !== "all") {
+        params.filter = this.selectedFilter; // Envia o tipo de filtro
+      }
+
+      try {
+        const response = await fetch(
+          `${apiUrl}?${new URLSearchParams(params)}`
+        );
+        const data = await response.json();
+        this.results = data;
+        this.currentPage = 1; // Resetar para a primeira página após a busca
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        this.results = [];
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    },
+    previousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    },
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style>
+/* Adicione estilos se necessário */
 </style>
