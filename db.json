@@ -1,0 +1,214 @@
+{
+  "medicines": [
+    {
+      "id": 1,
+      "substance": "Paracetamol",
+      "cnpj": "00.000.000/0001-00",
+      "laboratory": "Laboratório A"
+    },
+    {
+      "id": 2,
+      "substance": "Ibuprofeno",
+      "cnpj": "00.000.000/0002-01",
+      "laboratory": "Laboratório B"
+    },
+    {
+      "id": 3,
+      "substance": "Amoxicilina",
+      "cnpj": "00.000.000/0003-02",
+      "laboratory": "Laboratório C"
+    },
+    {
+      "id": 4,
+      "substance": "Dipirona",
+      "cnpj": "00.000.000/0004-03",
+      "laboratory": "Laboratório D"
+    },
+    {
+      "id": 5,
+      "substance": "Omeprazol",
+      "cnpj": "00.000.000/0005-04",
+      "laboratory": "Laboratório E"
+    },
+    {
+      "id": 6,
+      "substance": "Cetirizina",
+      "cnpj": "00.000.000/0006-05",
+      "laboratory": "Laboratório F"
+    },
+    {
+      "id": 7,
+      "substance": "Simeticona",
+      "cnpj": "00.000.000/0007-06",
+      "laboratory": "Laboratório G"
+    },
+    {
+      "id": 8,
+      "substance": "Losartana",
+      "cnpj": "00.000.000/0008-07",
+      "laboratory": "Laboratório H"
+    },
+    {
+      "id": 9,
+      "substance": "Metformina",
+      "cnpj": "00.000.000/0009-08",
+      "laboratory": "Laboratório I"
+    },
+    {
+      "id": 10,
+      "substance": "Atorvastatina",
+      "cnpj": "00.000.000/0010-09",
+      "laboratory": "Laboratório J"
+    },
+    {
+      "id": 11,
+      "substance": "Alprazolam",
+      "cnpj": "00.000.000/0011-10",
+      "laboratory": "Laboratório A"
+    },
+    {
+      "id": 12,
+      "substance": "AAS",
+      "cnpj": "00.000.000/0012-11",
+      "laboratory": "Laboratório B"
+    },
+    {
+      "id": 13,
+      "substance": "Carbamazepina",
+      "cnpj": "00.000.000/0013-12",
+      "laboratory": "Laboratório C"
+    },
+    {
+      "id": 14,
+      "substance": "Fluoxetina",
+      "cnpj": "00.000.000/0014-13",
+      "laboratory": "Laboratório D"
+    },
+    {
+      "id": 15,
+      "substance": "Sertralina",
+      "cnpj": "00.000.000/0015-14",
+      "laboratory": "Laboratório E"
+    },
+    {
+      "id": 16,
+      "substance": "Ranitidina",
+      "cnpj": "00.000.000/0016-15",
+      "laboratory": "Laboratório F"
+    },
+    {
+      "id": 17,
+      "substance": "Clonazepam",
+      "cnpj": "00.000.000/0017-16",
+      "laboratory": "Laboratório G"
+    },
+    {
+      "id": 18,
+      "substance": "Bromazepam",
+      "cnpj": "00.000.000/0018-17",
+      "laboratory": "Laboratório H"
+    },
+    {
+      "id": 19,
+      "substance": "Levotiroxina",
+      "cnpj": "00.000.000/0019-18",
+      "laboratory": "Laboratório I"
+    },
+    {
+      "id": 20,
+      "substance": "Prednisona",
+      "cnpj": "00.000.000/0020-19",
+      "laboratory": "Laboratório J"
+    },
+    {
+      "id": 21,
+      "substance": "Dexametasona",
+      "cnpj": "00.000.000/0021-20",
+      "laboratory": "Laboratório A"
+    },
+    {
+      "id": 22,
+      "substance": "Carvedilol",
+      "cnpj": "00.000.000/0022-21",
+      "laboratory": "Laboratório B"
+    },
+    {
+      "id": 23,
+      "substance": "Captopril",
+      "cnpj": "00.000.000/0023-22",
+      "laboratory": "Laboratório C"
+    },
+    {
+      "id": 24,
+      "substance": "Amlodipino",
+      "cnpj": "00.000.000/0024-23",
+      "laboratory": "Laboratório D"
+    },
+    {
+      "id": 25,
+      "substance": "Furosemida",
+      "cnpj": "00.000.000/0025-24",
+      "laboratory": "Laboratório E"
+    },
+    {
+      "id": 26,
+      "substance": "Duloxetina",
+      "cnpj": "00.000.000/0026-25",
+      "laboratory": "Laboratório F"
+    },
+    {
+      "id": 27,
+      "substance": "Pregabalina",
+      "cnpj": "00.000.000/0027-26",
+      "laboratory": "Laboratório G"
+    },
+    {
+      "id": 28,
+      "substance": "Vitamina D",
+      "cnpj": "00.000.000/0028-27",
+      "laboratory": "Laboratório H"
+    },
+    {
+      "id": 29,
+      "substance": "Fluconazol",
+      "cnpj": "00.000.000/0029-28",
+      "laboratory": "Laboratório I"
+    },
+    {
+      "id": 30,
+      "substance": "Naproxeno",
+      "cnpj": "00.000.000/0030-29",
+      "laboratory": "Laboratório J"
+    },
+    {
+      "id": 31,
+      "substance": "Clorpromazina",
+      "cnpj": "00.000.000/0031-30",
+      "laboratory": "Laboratório A"
+    },
+    {
+      "id": 32,
+      "substance": "Valproato de sódio",
+      "cnpj": "00.000.000/0032-31",
+      "laboratory": "Laboratório B"
+    },
+    {
+      "id": 33,
+      "substance": "Lamotrigina",
+      "cnpj": "00.000.000/0033-32",
+      "laboratory": "Laboratório C"
+    },
+    {
+      "id": 34,
+      "substance": "Nimesulida",
+      "cnpj": "00.000.000/0034-33",
+      "laboratory": "Laboratório D"
+    },
+    {
+      "id": 35,
+      "substance": "Budesonida",
+      "cnpj": "00.000.000/0035-34",
+      "laboratory": "Laboratório E"
+    }
+  ]
+}
