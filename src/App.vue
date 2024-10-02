@@ -1,17 +1,17 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <img alt="Vue logo" src="./assets/logo.png" />
+  <BuscaMedicamentos></BuscaMedicamentos>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BuscaMedicamentos from "./components/BuscaMedicamentos.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    BuscaMedicamentos,
+  },
+};
 </script>
 
 <style>
