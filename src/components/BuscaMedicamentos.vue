@@ -1,44 +1,66 @@
 <template>
-  <div>
-    <h1>Busca de Medicamentos</h1>
+  <div class="container mt-4">
+    <h1 class="text-center mb-4">Busca de Medicamentos</h1>
 
     <!-- Formulário de Filtros -->
-    <form @submit.prevent="fetchData">
-      <select v-model="selectedFilter">
-        <option value="all">Todos</option>
-        <option value="substance">Substância</option>
-        <option value="cnpj">CNPJ</option>
-        <option value="laboratory">Laboratório</option>
-      </select>
-      <input type="text" v-model="searchTerm" placeholder="Buscar..." />
-
-      <!-- Botão de Buscar -->
-      <button type="submit">Buscar</button>
+    <form @submit.prevent="fetchData" class="d-flex align-items-center">
+      <div class="input-group flex-grow-1">
+        <input
+          type="text"
+          v-model="searchTerm"
+          placeholder="Buscar..."
+          class="form-control"
+          aria-label="Buscar"
+        />
+        <select
+          v-model="selectedFilter"
+          class="form-select"
+          aria-label="Selecione um filtro"
+        >
+          <option value="all">Todos</option>
+          <option value="substance">Substância</option>
+          <option value="cnpj">CNPJ</option>
+          <option value="laboratory">Laboratório</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+      </div>
     </form>
 
     <!-- Listagem de Resultados Paginada -->
-    <div v-if="results.length > 0">
-      <ul>
-        <li v-for="(item, index) in paginatedResults" :key="index">
+    <div v-if="results.length > 0" class="mt-4">
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          v-for="(item, index) in paginatedResults"
+          :key="index"
+        >
           {{ item.name }} - {{ item.substance }} - {{ item.cnpj }} -
           {{ item.laboratory }}
         </li>
       </ul>
 
       <!-- Paginação -->
-      <div>
-        <button @click="previousPage" :disabled="currentPage === 1">
+      <div class="d-flex justify-content-between mt-3">
+        <button
+          @click="previousPage"
+          class="btn btn-secondary"
+          :disabled="currentPage === 1"
+        >
           Anterior
         </button>
         <span>Página {{ currentPage }} de {{ totalPages }}</span>
-        <button @click="nextPage" :disabled="currentPage === totalPages">
+        <button
+          @click="nextPage"
+          class="btn btn-secondary"
+          :disabled="currentPage === totalPages"
+        >
           Próxima
         </button>
       </div>
     </div>
 
     <!-- Mensagem de sem resultados -->
-    <p v-else>Nenhum resultado encontrado</p>
+    <p v-else class="mt-3 text-center">Nenhum resultado encontrado</p>
   </div>
 </template>
 
@@ -47,7 +69,7 @@ export default {
   data() {
     return {
       searchTerm: "",
-      selectedFilter: "all", // Valor inicial do select
+      selectedFilter: "all",
       results: [],
       currentPage: 1,
       perPage: 10,
@@ -67,14 +89,12 @@ export default {
     async fetchData() {
       const apiUrl = "https://fakeapi.com/medicines"; // Substitua pela URL da sua API
 
-      // Parâmetros de busca e filtros
       const params = {
         search: this.searchTerm,
       };
 
-      // Adiciona o filtro selecionado aos parâmetros
       if (this.selectedFilter !== "all") {
-        params.filter = this.selectedFilter; // Envia o tipo de filtro
+        params.filter = this.selectedFilter;
       }
 
       try {
@@ -83,7 +103,7 @@ export default {
         );
         const data = await response.json();
         this.results = data;
-        this.currentPage = 1; // Resetar para a primeira página após a busca
+        this.currentPage = 1;
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
         this.results = [];
@@ -104,5 +124,15 @@ export default {
 </script>
 
 <style>
-/* Adicione estilos se necessário */
+.container {
+  max-width: 600px;
+}
+
+.list-group-item {
+  transition: background-color 0.3s;
+}
+
+.list-group-item:hover {
+  background-color: #f1f1f1;
+}
 </style>
