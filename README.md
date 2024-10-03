@@ -46,5 +46,3 @@ npm run serve
 A aplicação estará disponível em `http://localhost:8080` (ou em outra porta, caso a 8080 esteja em uso).
 
 ```
-
-```
