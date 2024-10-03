@@ -10,24 +10,24 @@
           placeholder="Buscar..."
           class="form-control"
           aria-label="Buscar"
+          @input="fetchData"
         />
         <select
           v-model="selectedFilter"
           class="form-select"
           aria-label="Selecione um filtro"
         >
-          <option value="substance">Substância</option>
-          <option value="cnpj">CNPJ</option>
-          <option value="laboratory">Laboratório</option>
+          <option value="SUBSTANCIA">Substância</option>
+          <option value="CNPJ">CNPJ</option>
+          <option value="LABORATORIO">Laboratório</option>
         </select>
-        <button type="submit" class="btn btn-dark">Buscar</button>
         <button type="button" class="btn btn-secondary" @click="clearFilter">
           Limpar Filtro
         </button>
       </div>
     </form>
 
-    <div v-if="results.length > 0" class="mt-4">
+    <div v-if="filteredResults.length > 0" class="mt-4">
       <table class="table table-striped table-bordered">
         <thead class="table-dark">
           <tr>
@@ -38,9 +38,9 @@
         </thead>
         <tbody>
           <tr v-for="(item, index) in paginatedResults" :key="index">
-            <td>{{ item.substance }}</td>
-            <td>{{ item.cnpj }}</td>
-            <td>{{ item.laboratory }}</td>
+            <td>{{ item.SUBSTANCIA }}</td>
+            <td>{{ item.CNPJ }}</td>
+            <td>{{ item.LABORATORIO }}</td>
           </tr>
         </tbody>
       </table>
@@ -75,7 +75,7 @@ export default {
   data() {
     return {
       searchTerm: "",
-      selectedFilter: "substance", // Filtro padrão
+      selectedFilter: "SUBSTANCIA", // Filtro padrão em letras maiúsculas
       results: [],
       currentPage: 1,
       perPage: 25,
@@ -83,24 +83,32 @@ export default {
   },
   computed: {
     totalPages() {
-      return Math.ceil(this.results.length / this.perPage);
+      return Math.ceil(this.filteredResults.length / this.perPage);
     },
     paginatedResults() {
       const start = (this.currentPage - 1) * this.perPage;
       const end = start + this.perPage;
-      return this.results.slice(start, end);
+      return this.filteredResults.slice(start, end);
+    },
+    filteredResults() {
+      if (!this.searchTerm) {
+        return this.results; // Se não há termo de busca, retorna todos os resultados
+      }
+
+      return this.results.filter((item) => {
+        return item[this.selectedFilter]
+          .toLowerCase()
+          .includes(this.searchTerm.toLowerCase());
+      });
     },
   },
   methods: {
     async fetchData() {
-      const apiUrl = "http://localhost:3000/medicines";
+      const apiUrl = "http://localhost:8000/api/data-excel/list/"; // Atualize a URL aqui
       const params = {
         filter: this.selectedFilter,
+        [this.selectedFilter]: this.searchTerm,
       };
-
-      if (this.searchTerm) {
-        params[this.selectedFilter] = this.searchTerm; // Filtrando pela chave correta
-      }
 
       console.log("Parâmetros enviados:", params); // Log para depuração
 
@@ -110,7 +118,7 @@ export default {
         );
 
         if (!response.ok) {
-          throw new Error("Erro na resposta da API"); // Tratamento de erro mais claro
+          throw new Error("Erro na resposta da API");
         }
 
         const data = await response.json();
@@ -123,11 +131,13 @@ export default {
     },
     clearFilter() {
       this.searchTerm = ""; // Limpa o input de pesquisa
-      this.selectedFilter = "substance"; // Reseta o filtro para 'substance'
+      this.selectedFilter = "SUBSTANCIA"; // Reseta o filtro para 'SUBSTANCIA'
       this.fetchAllData(); // Busca todos os dados novamente
     },
     async fetchAllData() {
-      const apiUrl = "http://localhost:3000/medicines";
+      const apiUrl = "http://localhost:8000/api/data-excel/list/"; // Atualize a URL aqui
+
+      console.log("Iniciando busca de todos os dados..."); // Log para depuração
 
       try {
         const response = await fetch(apiUrl);
@@ -139,6 +149,7 @@ export default {
         const data = await response.json();
         this.results = data; // Define todos os dados
         this.currentPage = 1; // Resetar a página para 1
+        console.log("Dados recebidos:", data); // Log dos dados recebidos
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
         this.results = []; // Limpar resultados em caso de erro
@@ -156,6 +167,7 @@ export default {
     },
   },
   mounted() {
+    console.log("Componente montado. Carregando dados..."); // Log para depuração
     this.fetchAllData(); // Carregar todos os dados ao iniciar o componente
   },
 };
